@@ -42,9 +42,8 @@ def load_resources():
     if not os.path.exists(MAJORS_DATA_PATH) or not os.path.exists(UNIVERSITIES_DATA_PATH):
         raise FileNotFoundError(f"File data '{MAJORS_DATA_PATH}' atau '{UNIVERSITIES_DATA_PATH}' tidak ditemukan. Pastikan ada di folder 'data/'.")
     try:
-        major_df = pd.read_csv(MAJORS_DATA_PATH, usecols=['id_major', 'type', 'capacity', 'id_university', 'major_name'])
-        major_df.set_index('id_major', inplace=True)
-        univ_df = pd.read_csv(UNIVERSITIES_DATA_PATH, index_col=0, usecols=['id_university', 'university_name'])
+        major_df = pd.read_csv(MAJORS_DATA_PATH, index_col=0)
+        univ_df = pd.read_csv(UNIVERSITIES_DATA_PATH, index_col=0)
 
         # Normalisasi dan pemetaan tipe (sesuai streamlit)
         major_df['type'] = major_df['type'].astype(str).str.lower().str.strip()
